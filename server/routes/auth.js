@@ -3,10 +3,7 @@ import {register,login} from '../controllers/auth.js'
 
 
 const authRoutes =express.Router();
-
-
-router.post("/login",login);
-
+authRoutes.post("/login",login);
 
 export default authRoutes;
 

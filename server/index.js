@@ -8,7 +8,7 @@ import mongoose from "mongoose"
 import {fileURLToPath} from 'url'
 import morgan from "morgan";
 import path from 'path'
-import {register} from './controllers/auth.js'
+import {register,login} from './controllers/auth.js'
 import authRoutes from './routes/auth.js'
 
 // CONFIGURATION (Middleware) runs in between 
