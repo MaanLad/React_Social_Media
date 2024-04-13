@@ -9,9 +9,9 @@ import {fileURLToPath} from 'url'
 import morgan from "morgan";
 import path from 'path'
 import {register} from './controllers/auth.js'
+import authRoutes from './routes/auth.js'
 
 // CONFIGURATION (Middleware) runs in between 
-
 const __filename=fileURLToPath(import.meta.url);
 const __dirname=path.dirname(__filename);
 dotenv.config()
@@ -38,10 +38,14 @@ const upload=multer({storage});
 
 
 
-
-
 // ROUTES WITH FILES
+//we're not using the route here for register cause we want to upload the picture from here 
 app.post("/auth/register",upload.single("picture"),register);
+
+
+// Routes 
+app.use('/auth',authRoutes);
+
 
 // MONGOOSE SETUP 
 const PORT =process.env.PORT || 6001;
