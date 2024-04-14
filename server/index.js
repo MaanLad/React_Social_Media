@@ -10,6 +10,8 @@ import morgan from "morgan";
 import path from 'path'
 import {register,login} from './controllers/auth.js'
 import authRoutes from './routes/auth.js'
+import { verifyToken } from "./middleware/auth.js"
+import userRoutes from "./routes/user.js"
 
 // CONFIGURATION (Middleware) runs in between 
 const __filename=fileURLToPath(import.meta.url);
@@ -18,7 +20,7 @@ dotenv.config()
 const app=express();
 app.use(express.json())
 app.use(helmet())
-app.use(helmet.crossOriginResourcePolicy({policy:"cross-origin"}));
+app.use(helmet.crossOriginResourcePolicy({policy:"cross-origin"})); 
 app.use(morgan("common"));
 app.use(bodyParser.json({limit:"30mb",extended:true}));
 app.use(cors());
@@ -34,17 +36,18 @@ const storage =multer.diskStorage({
         cb(null,file.originalname);
     }
 })
-const upload=multer({storage});
+const upload=multer({storage});  
 
 
 
 // ROUTES WITH FILES
 //we're not using the route here for register cause we want to upload the picture from here 
-app.post("/auth/register",upload.single("picture"),register);
-
+app.post("/auth/register",upload.single("picture"), register);
 
 // Routes 
 app.use('/auth',authRoutes);
+
+app.use('/user',userRoutes)
 
 
 // MONGOOSE SETUP 

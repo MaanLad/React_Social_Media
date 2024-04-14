@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt'
+// import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import {User} from '../models/User.js'
 // import { scryptSync,randomBytes } from 'crypto';
@@ -18,9 +18,10 @@ export const register= async (req,res)=>{
             location,
             occupation,
         }=req.body;
-        const salt=await bcrypt.genSalt();
-        const passwordHash=await bcrypt.hash(password,salt);
+        // const salt=await bcrypt.genSalt();
+        // const passwordHash=await bcrypt.hash(password,salt);
         // const passwordHash = scryptSync(password, salt, 32).toString("hex");
+        const passwordHash=password;
         const newUser=new User({
             firstName,
             lastName,
@@ -46,10 +47,13 @@ export const login= async (req,res)=>{
         const {email,password} =req.body;
         const user= await User.findOne({email:email});
         if(!user) res.status(400).json({'msg':'User does not found'});
-        const validPassword= await bcrypt.compare(password,user.password);
+        const validPassword= (user.password==password);
+        console.log(validPassword)
         if(!validPassword) res.status(400).json({'msg':'Invalid credentials '});
-        
+        const token =jwt.sign({id:user._id},process.env.JWT_SECRET);
+        delete user.password;
+        res.status(200).json({token,user});
     }catch(err){
-        res.status(500).json(`this error${err.message}`);
+        res.status(500).json(`${err.message}`);
     }
 }
