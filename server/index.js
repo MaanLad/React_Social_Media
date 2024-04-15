@@ -8,10 +8,15 @@ import mongoose from "mongoose"
 import {fileURLToPath} from 'url'
 import morgan from "morgan";
 import path from 'path'
-import {register,login} from './controllers/auth.js'
+import {register} from './controllers/auth.js'
 import authRoutes from './routes/auth.js'
 import { verifyToken } from "./middleware/auth.js"
 import userRoutes from "./routes/user.js"
+import postRoutes from "./routes/posts.js"
+import { createPost } from "./controllers/posts.js"
+import { User } from "./models/User.js"
+import { Post } from "./models/Post.js"
+import {users,posts} from "./data/index.js"
 
 // CONFIGURATION (Middleware) runs in between 
 const __filename=fileURLToPath(import.meta.url);
@@ -43,11 +48,14 @@ const upload=multer({storage});
 // ROUTES WITH FILES
 //we're not using the route here for register cause we want to upload the picture from here 
 app.post("/auth/register",upload.single("picture"), register);
+app.post("/posts",verifyToken,upload.single("picture"),createPost);
 
 // Routes 
 app.use('/auth',authRoutes);
 
 app.use('/user',userRoutes)
+
+app.use('/posts',postRoutes); 
 
 
 // MONGOOSE SETUP 
@@ -57,9 +65,9 @@ mongoose.connect(process.env.MONGO_URL,{
     useNewUrlParser:true,
     useUnifiedTopology:true,
 }).then(()=>{
-    app.listen(PORT,()=>{
-        console.log(`Server connected at port : ${PORT}`);
-    })
+    app.listen(PORT,()=> console.log(`Server connected at port : ${PORT}`));
+    // User.insertMany(users);
+    // Post.inssertMany(posts);
 }).catch((err)=>{
     console.log(`${err} did not connect`);
 })
