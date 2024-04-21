@@ -8,7 +8,8 @@ import {
     Select,
     useTheme,
     FormControl,
-    useMediaQuery
+    useMediaQuery,
+    Icon
 } from "@mui/material";
 import {
     Search,
@@ -91,7 +92,7 @@ const Navbar = () => {
                     "& .MuiSelect-select:focus": {
                         backgroundColor: neutralLight,
                     },
-                }}input={<InputBase />}>                        
+                }} input={<InputBase />}>
                     <MenuItem value="Maanlad"><Typography>afdasjdfas</Typography></MenuItem>
                     <MenuItem onClick={() => dispatch(setLogout())}>Log Out</MenuItem>
                 </Select>
@@ -100,6 +101,37 @@ const Navbar = () => {
             >
                 <Menu />
             </IconButton>)}
+
+            {
+                !isNonMobileScreens && isMobileMenuToggled &&
+                (
+                    <Box
+                        position='fixed'
+                        right='0'
+                        bottom='0'
+                        height='100%'
+                        zIndex='10'
+                        maxHeight='500px'
+                        maxWidth='300px'
+                        background={background}
+                        gap='3rem'
+                    >
+                        <Box
+                            display='flex'
+                            justifyContent='center'
+                            p='1rem'
+                        >
+                            <IconButton
+                                onClick={() => {setIsMobileMenuToggled(!isMobileMenuToggled); console.log("Jello")}}
+                            >
+                                <Close />
+                            </IconButton>
+                        </Box>
+
+
+                    </Box>
+                )
+            }
         </FlexBetween>
     )
 }
