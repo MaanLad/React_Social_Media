@@ -8,7 +8,7 @@ import mongoose from "mongoose"
 import {fileURLToPath} from 'url'
 import morgan from "morgan";
 import path from 'path'
-import {register} from './controllers/auth.js'
+import {register,login} from './controllers/auth.js'
 import authRoutes from './routes/auth.js'
 import { verifyToken } from "./middleware/auth.js"
 import userRoutes from "./routes/user.js"
@@ -53,7 +53,7 @@ app.post("/posts",verifyToken,upload.single("picture"),createPost);
 // Routes 
 app.use('/auth',authRoutes);
 
-app.use('/user',userRoutes)
+app.use('/users',userRoutes)
 
 app.use('/posts',postRoutes); 
 

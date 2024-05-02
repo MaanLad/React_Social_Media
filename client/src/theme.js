@@ -1,5 +1,3 @@
-import { dark } from "@mui/material/styles/createPalette";
-
 // color design tokens export
 export const colorTokens = {
   grey: {
