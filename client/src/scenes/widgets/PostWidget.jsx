@@ -3,6 +3,7 @@ import {
     FavoriteBorderOutlined,
     FavoriteOutlined,
     ShareOutlined,
+    DeleteOutline
   } from "@mui/icons-material";
   import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
   import FlexBetween from "component/FlexBetween";
@@ -11,8 +12,10 @@ import {
   import { useState } from "react";
   import { useDispatch, useSelector } from "react-redux";
   import { setPost } from "state";
+  // import DeleteIcon from '@mui/icons-material/Delete';
   
   const PostWidget = ({
+    isProfile,
     postId,
     postUserId,
     name,
@@ -47,6 +50,17 @@ import {
       dispatch(setPost({ post: updatedPost }));
     };
   
+    const deletePost=async()=>{
+      // const responseDelete=
+      await fetch(`http://localhost:3001/posts/${postId}`,{
+        method:"DELETE",
+        headers:{
+          Authorization: `Bearer ${token}`,
+          "Content-Type":"application/json",
+        }
+      });
+    };
+
     return (
       <WidgetWrapper m="2rem 0">
         <Friend
@@ -54,6 +68,7 @@ import {
           name={name}
           subtitle={location}
           userPicturePath={userPicturePath}
+          isProfile={isProfile}
         />
         <Typography color={main} sx={{ mt: "1rem" }}>
           {description}
@@ -87,10 +102,17 @@ import {
               <Typography>{comments.length}</Typography>
             </FlexBetween>
           </FlexBetween>
-  
+          <FlexBetween>
+            {isProfile&&( <IconButton onClick={()=>{
+            deletePost();
+            window.location.reload();
+          }}>
+                <DeleteOutline/>
+                </IconButton>)}
           <IconButton>
             <ShareOutlined />
           </IconButton>
+          </FlexBetween>
         </FlexBetween>
         {isComments && (
           <Box mt="0.5rem">

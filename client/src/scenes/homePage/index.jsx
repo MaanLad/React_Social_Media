@@ -27,12 +27,27 @@ const HomePage = () => {
         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
+          sx={{
+            overflow:"scroll",
+            height:"85vh",
+            '&::-webkit-scrollbar':{
+              display:"none"
+            }
+          }}
         >
           <MyPostWidget picturePath={picturePath} />
-          <PostsWidget userId={_id} />
+          <PostsWidget userId={_id} isProfile={false}/>
         </Box>
         {isNonMobileScreens && (
-          <Box flexBasis="26%">
+          <Box flexBasis="26%"
+          sx={{
+            overflow:"scroll",
+            height:"85vh",
+            '&::-webkit-scrollbar':{
+              display:"none"
+            }
+          }}
+          >
             <AdvertWidget />
             <Box m="2rem 0" />
             <FriendListWidget userId={_id} />

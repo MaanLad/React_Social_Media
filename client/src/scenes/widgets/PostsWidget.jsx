@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPosts } from "state";
+import { setPosts,removeData } from "state";
 import PostWidget from "./PostWidget.jsx";
 
-const PostsWidget = ({ userId, isProfile = false }) => {
+const PostsWidget = ({ userId, isProfile}) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const token = useSelector((state) => state.token);
@@ -26,6 +26,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
       }
     );
     const data = await response.json();
+    dispatch(removeData);
     dispatch(setPosts({ posts: data }));
   };
 
@@ -53,6 +54,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
           comments,
         }) => (
           <PostWidget
+          isProfile={isProfile}
             key={_id}
             postId={_id}
             postUserId={userId}

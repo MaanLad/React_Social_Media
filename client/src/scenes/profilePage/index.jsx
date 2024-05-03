@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Navbar from "scenes/navbar";
 import FriendListWidget from "scenes/widgets/FriendListWidget";
-import MyPostWidget from "scenes/widgets/MyPostWidget.jsx";
+// import MyPostWidget from "scenes/widgets/MyPostWidget.jsx";
 import PostsWidget from "scenes/widgets/PostsWidget.jsx";
 import UserWidget from "scenes/widgets/UserWidget.jsx";
 
@@ -47,10 +47,17 @@ const ProfilePage = () => {
         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
+          sx={{
+            overflow:"scroll",
+            height:"95vh",
+            '&::-webkit-scrollbar':{
+              display:"none"
+            }
+          }}
         >
-          <MyPostWidget picturePath={user.picturePath} />
+          {/* <MyPostWidget picturePath={user.picturePath} isProfile={true}/> */}
           <Box m="2rem 0" />
-          <PostsWidget userId={userId} isProfile />
+          <PostsWidget userId={userId} isProfile={true} />
         </Box>
       </Box>
     </Box>

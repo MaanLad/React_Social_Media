@@ -19,7 +19,7 @@ const isNonMobileScreens=useMediaQuery("(min-width:1000px)");
                 fontSize="32px"
                 color='primary'
                 >
-                    Sociopedia
+                    SocialNet
                 </Typography>
             </Box>
             <Box
@@ -36,7 +36,7 @@ const isNonMobileScreens=useMediaQuery("(min-width:1000px)");
                     variant="h5"
                     sx={{mb:"1.5rem"}}
                     >
-                    Welcome to Socipedia, the Social Media for Sociopaths!
+                    Welcome to SocialNet , the Social Media for Sociopaths!
                     </Typography>
                 <Form/>
                 </Box>
