@@ -22,6 +22,10 @@ SocialNet-Sociopedia is a social media platform where people can gather to make 
 - Node.js
 - Redux
 
+- ## Linkedin post
+
+Check out my post on linkedin : [MyPost]([https://maanlad-foodrecepie.netlify.app/](https://www.linkedin.com/posts/maanlad_connection-socialnet-mernstack-activity-7192801023638323200-c7BA?utm_source=share&utm_medium=member_android))
+
 ## Installation
 
 1. Clone the repository:
